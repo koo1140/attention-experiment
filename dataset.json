@@ -1,0 +1,40 @@
+{
+  "description": "Tiny deterministic corpus for testing whether compressed context preserves parallel constraints. The data is intentionally small and hardcoded; main.py expands it into train/validation examples without downloads.",
+  "vocab": {
+    "pad": "<pad>",
+    "bos": "<bos>",
+    "eos": "<eos>",
+    "rules": ["red", "blue", "green", "cold", "warm", "quiet", "loud", "fast", "slow"],
+    "items": ["app", "game", "note", "chart", "bot", "tool", "page", "form", "deck"],
+    "steps": ["make", "add", "show", "test", "save", "open", "close", "draw", "sort"],
+    "fillers": ["please", "now", "clean", "simple", "small", "later", "again", "today", "brief"]
+  },
+  "train_templates": [
+    {
+      "prefix": ["<bos>", "{rule_a}", "{rule_b}", "{item}", "please", "make", "add", "show", "test"],
+      "target": ["{rule_a}", "{rule_b}", "{item}", "{rule_a}", "{rule_b}", "{item}", "<eos>"]
+    },
+    {
+      "prefix": ["<bos>", "{item}", "{rule_a}", "simple", "{rule_b}", "open", "draw", "save", "close"],
+      "target": ["{item}", "{rule_a}", "{rule_b}", "{item}", "{rule_a}", "{rule_b}", "<eos>"]
+    },
+    {
+      "prefix": ["<bos>", "{rule_a}", "now", "{item}", "clean", "{rule_b}", "sort", "show", "test"],
+      "target": ["{rule_b}", "{rule_a}", "{item}", "{rule_b}", "{rule_a}", "{item}", "<eos>"]
+    }
+  ],
+  "validation_templates": [
+    {
+      "prefix": ["<bos>", "{rule_a}", "{rule_b}", "{item}", "brief", "make", "open", "save", "show"],
+      "target": ["{rule_a}", "{rule_b}", "{item}", "{rule_a}", "{rule_b}", "{item}", "<eos>"]
+    },
+    {
+      "prefix": ["<bos>", "{item}", "{rule_a}", "later", "{rule_b}", "draw", "close", "test", "sort"],
+      "target": ["{item}", "{rule_a}", "{rule_b}", "{item}", "{rule_a}", "{rule_b}", "<eos>"]
+    },
+    {
+      "prefix": ["<bos>", "{rule_a}", "again", "{item}", "small", "{rule_b}", "show", "save", "open"],
+      "target": ["{rule_b}", "{rule_a}", "{item}", "{rule_b}", "{rule_a}", "{item}", "<eos>"]
+    }
+  ]
+}
